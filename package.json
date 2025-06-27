@@ -1,0 +1,14 @@
+{
+  "name": "espe-date-picker",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite"
+  },
+  "dependencies": {
+    "lit": "^3.1.2"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}
