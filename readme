@@ -1,0 +1,155 @@
+=====================================================
+ESPE Date Picker - Componente Web Personalizado
+=====================================================
+
+Proyecto desarrollado por **Jennifer Nayeli Torres Moreta**  
+Asignatura: *Desarrollo de Software para la Integración 202550*
+
+-----------------------------------------------------
+ VISTA DEL COMPONENTE
+
+![Preview del componente](./espe-date-picker/imagen/image1.png)
+
+![Preview del component](./espe-date-picker/imagen/image.png)
+
+
+-----------------------------------------------------
+1. INTRODUCCIÓN
+-----------------------------------------------------
+Este proyecto implementa un componente web personalizado llamado `<espe-date-picker>` utilizando la librería LitElement.  
+Su propósito es ofrecer un selector de fechas moderno, accesible, validado y alineado a la identidad visual de la ESPE, como parte de una arquitectura de componentes reutilizables.
+
+La solución incorpora conceptos como:
+- Estados dinámicos mediante `@property`
+- Encapsulamiento con Shadow DOM
+- Estilos basados en la paleta y tipografía institucional
+- Eventos personalizados para integración con otros componentes
+- Buenas prácticas de accesibilidad
+
+-----------------------------------------------------
+2. OBJETIVOS
+-----------------------------------------------------
+- Diseñar un componente `<espe-date-picker>` utilizando LitElement.
+- Aplicar estados dinámicos como `value` e `invalid` con `@property`.
+- Integrar la identidad visual de la ESPE (colores, espaciado, fuente).
+- Validar fechas ingresadas y emitir eventos según su validez.
+- Documentar el desarrollo y decisiones técnicas.
+
+-----------------------------------------------------
+3. DESCRIPCIÓN DEL COMPONENTE
+-----------------------------------------------------
+`<espe-date-picker>` es un selector de fecha con las siguientes características:
+
+- Estado dinámico `value` (fecha actual seleccionada).
+- Estado `invalid` si la fecha ingresada no es válida.
+- Estilos encapsulados con CSS: color primario #003C71, fuente Arial.
+- Validación automática y mensajes de error visibles.
+- Emisión de eventos:
+  - `fecha-seleccionada` cuando la fecha es válida.
+  - `fecha-invalida` cuando la fecha está fuera de formato.
+- Accesibilidad con `aria-label`, `aria-invalid` y `tabindex`.
+
+-----------------------------------------------------
+4. EXPLICACIÓN TÉCNICA
+-----------------------------------------------------
+
+### 4.1 Estados Dinámicos (`@property`)
+LitElement permite declarar propiedades reactivas con el decorador `@property`.  
+Estas propiedades actualizan automáticamente la UI cuando su valor cambia.
+
+```js
+@property({ type: String }) value = '';
+@property({ type: Boolean }) invalid = false;
+```
+
+Esto permite que el componente reaccione internamente a entradas del usuario y controle su visualización (por ejemplo, mostrar el borde en rojo si hay error).
+
+---
+
+### 4.2 Eventos Personalizados
+Se utilizan eventos personalizados para comunicar al exterior el estado del componente.
+
+```js
+this.dispatchEvent(new CustomEvent('fecha-seleccionada', {
+  detail: { value: formattedDate },
+  bubbles: true,
+  composed: true
+}));
+```
+
+Esto permite que otros componentes o scripts escuchen y reaccionen al valor ingresado por el usuario.
+
+---
+
+### 4.3 Ventajas de LitElement sobre Web Components Puros
+
+| Característica            | Web Components puros | LitElement        |
+|---------------------------|----------------------|-------------------|
+| Reactividad               |  Manual             |  @property       |
+| Plantillas HTML           |  Tediosas (`innerHTML`) |  html``    |
+| Shadow DOM                |                     |               |
+| Estilos Encapsulados      |  Requiere esfuerzo |  Integrado       |
+| Eventos Personalizados    |                    |  + integrados    |
+| Código más legible        |  Verboso           |  Modular         |
+
+LitElement simplifica la creación, mantenimiento y legibilidad de componentes complejos.
+
+-----------------------------------------------------
+5. ERRORES Y SOLUCIONES COMUNES
+-----------------------------------------------------
+-  `EJSONPARSE` en `package.json`:  
+  Solución: revisar comas y estructura JSON correcta.
+
+-  No se ve el componente en el navegador:  
+  Solución: ejecutar con `npm run dev` usando Vite, no abrir como archivo local.
+
+-  Error de importación `lit` o `decorators.js`:  
+  Solución: instalar con `npm install lit`.
+
+-  "Not available" en consola:  
+  Solución: usar servidor (`vite`) y verificar rutas y nombres exactos de archivos.
+
+-----------------------------------------------------
+6. INSTRUCCIONES PARA EJECUTAR
+-----------------------------------------------------
+1. Clonar el repositorio o descargar el proyecto.
+2. Ejecutar en terminal:
+   ```bash
+   npm install
+   npm run dev
+   ```
+3. Abrir el navegador en:
+   ```
+   http://localhost:5173/
+   ```
+4. Interactuar con el componente `<espe-date-picker>`.
+5. Observar en consola eventos como `fecha-seleccionada`.
+
+-----------------------------------------------------
+7. BUENAS PRÁCTICAS APLICADAS
+-----------------------------------------------------
+- Shadow DOM para encapsular funcionalidad y estilos.
+- Accesibilidad con ARIA, tabindex y validación clara.
+- Separación de lógica y presentación.
+- Modularidad con `components/espe-date-picker.js`.
+- Código legible, documentado y sin IA autogenerada.
+
+-----------------------------------------------------
+8. PRÓXIMAS MEJORAS
+-----------------------------------------------------
+- Soporte para rangos de fecha (`min`, `max`).
+- Selector visual tipo calendario emergente.
+- Estilos variables (`theme` claro/oscuro).
+- Inclusión de librerías externas para internacionalización (`i18n`).
+
+-----------------------------------------------------
+9. REFERENCIAS
+-----------------------------------------------------
+- Lit Documentation: https://lit.dev
+- Manual de Imagen Institucional ESPE
+- MDN Web Docs (input type="date"): https://developer.mozilla.org
+- Accesibilidad en Web: https://developer.mozilla.org/en-US/docs/Web/Accessibility
+
+-----------------------------------------------------
+Fin del documento
+-----------------------------------------------------
